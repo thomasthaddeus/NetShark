@@ -11,8 +11,32 @@
         - `protocol_number`: The number representing the protocol.
 """
 
-def resolve_ip(ip_address):
-    pass
+import json
+import socket
 
-def get_protocol_name(protocol_number):
-    pass
+# Load protocol mappings from the JSON file
+with open(file="protocols.json", mode="r", encoding='utf-8') as file:
+    PROTOCOLS = json.load(file)
+
+def resolve_ip(ip_address: str) -> str:
+    """
+    Resolve an IP address to its domain name (if possible).
+    """
+    try:
+        return socket.gethostbyaddr(ip_address)[0]
+    except socket.herror:
+        # Unable to resolve the IP to a domain
+        return ip_address
+    except Exception as e:
+        print(f"Error resolving IP address {ip_address}: {e}")
+        return ip_address
+
+def get_protocol_name(protocol_number: int) -> str:
+    """
+    Get the textual name of a protocol given its number.
+    """
+    return PROTOCOLS.get(str(protocol_number), f"UNKNOWN-{protocol_number}")
+
+# Sample usage:
+# print(resolve_ip("8.8.8.8"))
+# print(get_protocol_name(6))
