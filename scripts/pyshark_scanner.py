@@ -13,6 +13,19 @@ import sys
 import subprocess
 import pyshark
 
+def check_install():
+    """
+    TODO: This function should check whether the appropriate software is installed in the environment before attempting to decrypt the pcap data.
+    """
+    pass
+
+def check_permissions():
+    """
+    TODO: This function should check that the user has the appropriate permissions to run the programs associated with the extraction process.
+    TODO: If admin permission is needed raise to user and break process.
+    """
+    pass
+
 
 def decrypt_pcap(file_path, key, encryption_type="wep"):
     """
@@ -37,8 +50,8 @@ def decrypt_pcap(file_path, key, encryption_type="wep"):
 
     try:
         subprocess.run(cmd, check=True)
-    except subprocess.CalledProcessError as e:
-        print(f"Error during decryption: {e}")
+    except subprocess.CalledProcessError as err:
+        print(f"Error during decryption: {err}")
         return None
 
     return output_file
@@ -121,10 +134,11 @@ def get_aircrack_info(cap):
 def crack_pcap():
     """
     TODO: implement with aircrack-ng support
+    TODO: add calls to bash scripts to run the appropriate program
 
-    # Note: Extracting WEP key directly from a pcap is not straightforward and
-    # typically requires a separate cracking procedure. pcap files usually
-    # don't contain the WEP key in plaintext.
+    Note: Extracting WEP key directly from a pcap is not straightforward and
+    typically requires a separate cracking procedure. pcap files usually
+    don't contain the WEP key in plaintext.
     """
     pass
 

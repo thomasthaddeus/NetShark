@@ -10,5 +10,9 @@
         "Pypcap",
         "rdpcap",
         "tshark"
+    ],
+    "python.analysis.extraPaths": [
+        "./src/analyzer",
+        "./src/config"
     ]
 }

@@ -10,14 +10,14 @@ from loguru import logger
 
 # Basic Logging Setup
 logger.remove()  # Remove the default handler
-log_format = "<green>{time:YYYY-MM-DD HH:mm:ss}</green> | <level>{level: <8}</level> | <cyan>{name}</cyan>:<cyan>{function}</cyan>:<cyan>{line}</cyan> - <level>{message}</level>"
+LOG_FORMAT = "<green>{time:YYYY-MM-DD HH:mm:ss}</green> | <level>{level: <8}</level> | <cyan>{name}</cyan>:<cyan>{function}</cyan>:<cyan>{line}</cyan> - <level>{message}</level>"
 
 # Log to console with specific format and level
-logger.add("stdout", format=log_format, level="INFO")
+logger.add("stdout", format=LOG_FORMAT, level="INFO")
 
 # 1. Log Rotation and Retention
-log_file = "app.log"
-logger.add(log_file, rotation="1 week", retention="4 weeks", format=log_format, level="DEBUG")
+LOG_FILE = "data/logs/app.log"
+logger.add(LOG_FILE, rotation="1 week", retention="4 weeks", format=LOG_FORMAT, level="DEBUG")
 
 
 def log(message, log_type="INFO"):

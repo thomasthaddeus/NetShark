@@ -15,6 +15,17 @@
 
 import pyshark
 
+# import the necessary analyzer classes:
+from security_analyzer import SecurityAnalyzer
+from statistical_analyzer import StatisticalAnalyzer
+from traffic_analyzer import TrafficAnalyzer
+from network_topology_analyzer import NetworkTopologyAnalyzer
+from crypto_analyzer import CryptoAnalyzer
+from content_analyzer import ContentAnalyzer
+from application_analyzer import ApplicationAnalyzer
+from behavior_analyzer import BehaviorAnalyzer
+from performance_analyzer import PerformanceAnalyzer
+
 class PacketAnalyzer:
 
     def __init__(self, file_path: str):
@@ -25,7 +36,19 @@ class PacketAnalyzer:
         - file_path (str): Path to the packet capture file.
         """
         self.file_path = file_path
-        self.cap = None
+        self.cap = None  # Loaded packet capture using pyshark
+
+        # Instantiate analyzer classes
+        self.security_analyzer = SecurityAnalyzer()
+        self.statistical_analyzer = StatisticalAnalyzer()
+        self.traffic_analyzer = TrafficAnalyzer()
+        self.network_topology_analyzer = NetworkTopologyAnalyzer()
+        self.crypto_analyzer = CryptoAnalyzer()
+        self.content_analyzer = ContentAnalyzer()
+        self.application_analyzer = ApplicationAnalyzer()
+        self.behavior_analyzer = BehaviorAnalyzer()
+        self.performance_analyzer = PerformanceAnalyzer()
+
 
     def load_capture(self):
         """
@@ -63,13 +86,16 @@ class PacketAnalyzer:
         if analysis_type == "network":
             # Delegate to NetworkAnalyzer class (to be defined)
             pass
-        elif analysis_type == "security":
-            # Delegate to SecurityAnalyzer class (to be defined)
-            pass
+        if analysis_type == 'security':
+            return self.security_analyzer.detect_port_scans(self.cap)
+
+        elif analysis_type == 'statistics':
+            return self.statistical_analyzer.get_packet_length_distribution(self.cap)
         # ... Add other analysis types as needed
 
         else:
             print(f"Unknown analysis type: {analysis_type}")
+            print(f"Analysis type {analysis_type} is not supported.")
 
 # Sample Usage:
 # analyzer = PacketAnalyzer("/path/to/pcap/file.pcap")
