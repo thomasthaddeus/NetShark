@@ -1,0 +1,6 @@
+[pcap]
+file = "example.pcap"
+
+[query]
+domain = "example.com"
+ip_address = "192.168.1.1"
